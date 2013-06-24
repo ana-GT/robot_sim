@@ -1,0 +1,155 @@
+drchubo_controller:
+  statistics_time_window_size: 1.0
+  type: "robot_mechanism_controllers/JointTrajectoryActionController"
+  joints:
+    - LHY
+    - LHR
+    - LHP
+    - LKP
+    - LAP
+    - LAR
+    - RHY
+    - RHR
+    - RHP
+    - RKP
+    - RAP
+    - RAR
+    - LSP
+    - LSR
+    - LSY
+    - LEP
+    - LWY
+    - LWP
+    - LWR
+    - RSP
+    - RSR
+    - RSY
+    - REP
+    - RWY
+    - RWP
+    - RWR
+    - TSY
+    - NKY
+    - NKP
+  gains:
+    LHY: {p:     5.0, d:  0.01, i:   0.0, i_clamp:    0.0}
+    LHR: {p:   100.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    LHP: {p:  2000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    LKP: {p:  1000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    LAP: {p:   900.0, d:   2.0, i:   0.0, i_clamp:    0.0}
+    LAR: {p:   300.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    RHY: {p:     5.0, d:  0.01, i:   0.0, i_clamp:    0.0}
+    RHR: {p:   100.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    RHP: {p:  2000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    RKP: {p:  1000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    RAP: {p:   900.0, d:   2.0, i:   0.0, i_clamp:    0.0}
+    RAR: {p:   300.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    LSP: {p:  2000.0, d:   3.0, i:   0.0, i_clamp:    0.0}
+    LSR: {p:  1000.0, d:  20.0, i:   0.0, i_clamp:    0.0}
+    LSY: {p:  1000.0, d:  20.0, i:   0.0, i_clamp:    0.0}
+    LEP: {p:   200.0, d:   3.0, i:   0.0, i_clamp:    0.0}
+    LWY: {p:   200.0, d:   3.0, i:   0.0, i_clamp:    0.0}
+    LWP: {p:    50.0, d:   0.1, i:   0.0, i_clamp:    0.0}
+    LWR: {p:   100.0, d:   0.2, i:   0.0, i_clamp:    0.0}
+    RSP: {p:  2000.0, d:   3.0, i:   0.0, i_clamp:    0.0}
+    RSR: {p:  1000.0, d:  20.0, i:   0.0, i_clamp:    0.0}
+    RSY: {p:  1000.0, d:  20.0, i:   0.0, i_clamp:    0.0}
+    REP: {p:   200.0, d:   3.0, i:   0.0, i_clamp:    0.0}
+    RWY: {p:   200.0, d:   3.0, i:   0.0, i_clamp:    0.0}
+    RWP: {p:    50.0, d:   0.1, i:   0.0, i_clamp:    0.0}
+    RWR: {p:   100.0, d:   0.2, i:   0.0, i_clamp:    0.0}
+    TSY: {p:    20.0, d:   0.1, i:   0.0, i_clamp:    0.0}
+    NKY: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    NKP: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+  joint_trajectory_action_node:
+    joints:
+    - LHY
+    - LHR
+    - LHP
+    - LKP
+    - LAP
+    - LAR
+    - RHY
+    - RHR
+    - RHP
+    - RKP
+    - RAP
+    - RAR
+    - LSP
+    - LSR
+    - LSY
+    - LEP
+    - LWY
+    - LWP
+    - LWR
+    - RSP
+    - RSR
+    - RSY
+    - REP
+    - RWY
+    - RWP
+    - RWR
+    - TSY
+    - NKY
+    - NKP
+    constraints:
+      goal_time: 0.0
+      LHY:
+        goal: 0.02
+      LHR:
+        goal: 0.02
+      LHP:
+        goal: 0.02
+      LKP:
+        goal: 0.02
+      LAP:
+        goal: 0.02
+      LAR:
+        goal: 0.02
+      RHY:
+        goal: 0.02
+      RHR:
+        goal: 0.02
+      RHP:
+        goal: 0.02
+      RKP:
+        goal: 0.02
+      RAP:
+        goal: 0.02
+      RAR:
+        goal: 0.02
+      LSP:
+        goal: 0.02
+      LSR:
+        goal: 0.02
+      LSY:
+        goal: 0.02
+      LEP:
+        goal: 0.02
+      LWY:
+        goal: 0.02
+      LWP:
+        goal: 0.02
+      LWR:
+        goal: 0.02
+      RSP:
+        goal: 0.02
+      RSR:
+        goal: 0.02
+      RSY:
+        goal: 0.02
+      REP:
+        goal: 0.02
+      RWY:
+        goal: 0.02
+      RWP:
+        goal: 0.02
+      RWR:
+        goal: 0.02
+      TSY:
+        goal: 0.02
+      NKY:
+        goal: 0.02
+      NKP:
+        goal: 0.02
+

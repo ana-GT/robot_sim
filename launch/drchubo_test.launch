@@ -1,0 +1,11 @@
+<launch>
+
+  <arg name="gzname" default="gazebo"/>
+  <arg name="gzworld" default="$(find robot_sim)/worlds/drchubo_test.world"/>
+  <arg name="extra_gazebo_args" default="" />
+
+  <node name="gazebo" pkg="robot_sim" type="run_$(arg gzname)" args="$(arg gzworld) $(arg extra_gazebo_args)" output="screen" />
+
+  <include file="$(find robot_sim)/launch/drchubo_bringup.launch"/>
+
+</launch>
