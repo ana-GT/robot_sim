@@ -22,3 +22,5 @@ float64[] kp_velocity
 
 float64[] i_effort_min
 float64[] i_effort_max
+
+uint8[] k_effort 

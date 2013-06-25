@@ -20,6 +20,7 @@
         </constraints>
       </ode>
     </physics>
+
     <!-- A global light source -->
     <include>
       <uri>model://sun</uri>
@@ -28,15 +29,31 @@
     <include>
       <uri>model://ground_plane</uri>
     </include>
+
+    <!-- drchubo -->		
     <include>
       <uri>model://drchubo</uri>
-      <pose>0 0 0.8 0 0 0</pose>
-      <!-- Code used when working with pure gazebo -->	
+      <pose>1.33 -1.1 1.0 0 0 1.57</pose>
       <plugin filename="libdrchuboPlugin.so" name="drchuboPlugin"/>	
     </include>
 
-    <!-- DRC Plugin -->
-    <!--<plugin filename="libDRCPlugin.so" name="drc_plugin"/>-->
+    <!-- golf_cart -->
+    <include>
+      <uri>model://golf_cart</uri>
+      <pose>0.5 0.8 0.0 0.0 0.0 0.0</pose>
+    </include>
+
+    <!-- world Plugin -->
+    <plugin filename="libworldSimPlugin.so" name="worldSimPlugin">
+        <robot>
+            <model_name>drchubo</model_name>
+            <pin_link>Body_Torso</pin_link> 
+        </robot>   	
+        <vehicle>
+            <model_name>golf_cart</model_name>
+            <pin_link>chassis</pin_link> 
+        </vehicle>   	
+    </plugin>
 
   </world>
 </gazebo>

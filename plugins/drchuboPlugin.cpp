@@ -79,6 +79,20 @@ namespace gazebo
 	// common::Time(2.0 * this->world->GetPhysicsEngine()->GetMaxStepSize());
 
 	// init joints, hardcoded for drchubo
+	this->jointNames.push_back("LHY");
+	this->jointNames.push_back("LHR");
+	this->jointNames.push_back("LHP");
+	this->jointNames.push_back("LKP");
+	this->jointNames.push_back("LAP");
+	this->jointNames.push_back("LAR");
+
+	this->jointNames.push_back("RHY");
+	this->jointNames.push_back("RHR");
+	this->jointNames.push_back("RHP");
+	this->jointNames.push_back("RKP");
+	this->jointNames.push_back("RAP");
+	this->jointNames.push_back("RAR");
+
 	this->jointNames.push_back("LSP");
 	this->jointNames.push_back("LSR");
 	this->jointNames.push_back("LSY");
@@ -94,20 +108,6 @@ namespace gazebo
 	this->jointNames.push_back("RWY");
 	this->jointNames.push_back("RWP");
 	this->jointNames.push_back("RWR");
-
-	this->jointNames.push_back("LHY");
-	this->jointNames.push_back("LHR");
-	this->jointNames.push_back("LHP");
-	this->jointNames.push_back("LKP");
-	this->jointNames.push_back("LAP");
-	this->jointNames.push_back("LAR");
-
-	this->jointNames.push_back("RHY");
-	this->jointNames.push_back("RHR");
-	this->jointNames.push_back("RHP");
-	this->jointNames.push_back("RKP");
-	this->jointNames.push_back("RAP");
-	this->jointNames.push_back("RAR");
 
 	this->jointNames.push_back("TSY");
 	this->jointNames.push_back("NKY");

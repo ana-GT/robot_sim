@@ -15,7 +15,7 @@ add_library( gazebo_ros_api_plugin drcsim_plugins/gazebo_ros_api_plugin.cpp )
 target_link_libraries( gazebo_ros_api_plugin ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES})
 
 
-#rosbuild_add_library(worldSimPlugin worldSimPlugin.cpp)
-#target_link_libraries(worldSimPlugin ${GAZEBO_LIBRARIES})
+add_library(worldSimPlugin worldSimPlugin.cpp)
+target_link_libraries(worldSimPlugin ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES})
 
 
