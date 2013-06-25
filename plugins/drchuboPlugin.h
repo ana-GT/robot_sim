@@ -90,6 +90,7 @@ namespace gazebo
     /// \brief get data from force torque sensor
     private: void GetForceTorqueSensorState(const common::Time &_curTime);
 
+    private: void GetAndPublishRobotStates(const common::Time &_curTime);
 
     /// \brief pointer to gazebo world
     private: physics::WorldPtr world;
@@ -106,8 +107,6 @@ namespace gazebo
     /// \brief A combined AtlasState, IMU and ForceTorqueSensors Message
     /// for accessing all these states synchronously.
     private: robot_sim::robotState drchuboState;
-    private: void GetAndPublishRobotStates(const common::Time &_curTime);
-
 
     /// \brief internal copy of sdf for the plugin
     private: sdf::ElementPtr sdf;

@@ -154,19 +154,19 @@ namespace gazebo
 	// Initialize jointState message - ROS
 	{
 
-    // We are not sending names due to the fact that there is an enum
-    // joint indices in drchuboState.msg.
-    this->drchuboState.position.resize(this->joints.size());
-    this->drchuboState.velocity.resize(this->joints.size());
-    this->drchuboState.effort.resize(this->joints.size());
-    this->drchuboState.kp_position.resize(this->joints.size());
-    this->drchuboState.ki_position.resize(this->joints.size());
-    this->drchuboState.kd_position.resize(this->joints.size());
-    this->drchuboState.kp_velocity.resize(this->joints.size());
-    this->drchuboState.i_effort_min.resize(this->joints.size());
-    this->drchuboState.i_effort_max.resize(this->joints.size());
-    this->drchuboState.k_effort.resize(this->joints.size());
-
+	    // We are not sending names due to the fact that there is an enum
+	    // joint indices in drchuboState.msg.
+	    this->drchuboState.position.resize(this->joints.size());
+	    this->drchuboState.velocity.resize(this->joints.size());
+	    this->drchuboState.effort.resize(this->joints.size());
+	    this->drchuboState.kp_position.resize(this->joints.size());
+	    this->drchuboState.ki_position.resize(this->joints.size());
+	    this->drchuboState.kd_position.resize(this->joints.size());
+	    this->drchuboState.kp_velocity.resize(this->joints.size());
+	    this->drchuboState.i_effort_min.resize(this->joints.size());
+	    this->drchuboState.i_effort_max.resize(this->joints.size());
+	    this->drchuboState.k_effort.resize(this->joints.size());
+	    
 	    this->jointStates.name.resize(this->joints.size());
 	    this->jointStates.position.resize(this->joints.size());
 	    this->jointStates.velocity.resize(this->joints.size());
@@ -228,12 +228,12 @@ namespace gazebo
 	this->pubJointStatesQueue = this->pmq.addPub<sensor_msgs::JointState>();
 	this->pubJointStates = this->rosNode->advertise<sensor_msgs::JointState>(
 										 "drchubo/joint_states", 1);
-
-  //broadcasts atlas states
-  this->pubRobotStateQueue = this->pmq.addPub<robot_sim::robotState>();
-  this->pubRobotState = this->rosNode->advertise<robot_sim::robotState>(
-    "drchubo/drchubo_state", 100);
-
+	
+	//broadcasts atlas states
+	this->pubRobotStateQueue = this->pmq.addPub<robot_sim::robotState>();
+	this->pubRobotState = this->rosNode->advertise<robot_sim::robotState>(
+									      "drchubo/robot_state", 100);
+	
 	//  ** ROS Subscribers **                                          
 	
 	// ros topic subscribtions
@@ -275,202 +275,200 @@ namespace gazebo
 	}
     }
 
-////////////////////////////////////////////////////////////////////////////////
-void drchuboPlugin::SetJointCommands( const robot_sim::JointCommands::ConstPtr &_msg ) {
-printf("Set joint commands start \n");
-  boost::mutex::scoped_lock lock(this->mutex);
-
-  this->jointCommands.header.stamp = _msg->header.stamp;
-
-  if (_msg->position.size() == this->jointCommands.position.size())
-    std::copy(_msg->position.begin(), _msg->position.end(),
-      this->jointCommands.position.begin());
-  else
-    ROS_DEBUG("JointCommands message contains different number of"
-      " elements position[%ld] than expected[%ld]",
-      _msg->position.size(), this->jointCommands.position.size());
-
-  if (_msg->velocity.size() == this->jointCommands.velocity.size())
-    std::copy(_msg->velocity.begin(), _msg->velocity.end(),
-      this->jointCommands.velocity.begin());
-  else
-    ROS_DEBUG("JointCommands message contains different number of"
-      " elements velocity[%ld] than expected[%ld]",
-      _msg->velocity.size(), this->jointCommands.velocity.size());
-
-  if (_msg->effort.size() == this->jointCommands.effort.size())
-    std::copy(_msg->effort.begin(), _msg->effort.end(),
-      this->jointCommands.effort.begin());
-  else
-    ROS_DEBUG("JointCommands message contains different number of"
-      " elements effort[%ld] than expected[%ld]",
+    /**
+     * @function SetJointCommands
+     */
+    void drchuboPlugin::SetJointCommands( const robot_sim::JointCommands::ConstPtr &_msg ) {
+	printf("Set joint commands start \n");
+	boost::mutex::scoped_lock lock(this->mutex);
+	
+	this->jointCommands.header.stamp = _msg->header.stamp;
+	
+	if (_msg->position.size() == this->jointCommands.position.size())
+	    std::copy(_msg->position.begin(), _msg->position.end(),
+		      this->jointCommands.position.begin());
+	else
+	    ROS_DEBUG("JointCommands message contains different number of"
+		      " elements position[%ld] than expected[%ld]",
+		      _msg->position.size(), this->jointCommands.position.size());
+	
+	if (_msg->velocity.size() == this->jointCommands.velocity.size())
+	    std::copy(_msg->velocity.begin(), _msg->velocity.end(),
+		      this->jointCommands.velocity.begin());
+	else
+	    ROS_DEBUG("JointCommands message contains different number of"
+		      " elements velocity[%ld] than expected[%ld]",
+		      _msg->velocity.size(), this->jointCommands.velocity.size());
+	
+	if (_msg->effort.size() == this->jointCommands.effort.size())
+	    std::copy(_msg->effort.begin(), _msg->effort.end(),
+		      this->jointCommands.effort.begin());
+	else
+	    ROS_DEBUG("JointCommands message contains different number of"
+		      " elements effort[%ld] than expected[%ld]",
       _msg->effort.size(), this->jointCommands.effort.size());
-
-  if (_msg->kp_position.size() == this->drchuboState.kp_position.size())
-    std::copy(_msg->kp_position.begin(), _msg->kp_position.end(),
-      this->drchuboState.kp_position.begin());
-  else
-    ROS_DEBUG("JointCommands message contains different number of"
-      " elements kp_position[%ld] than expected[%ld]",
-      _msg->kp_position.size(), this->drchuboState.kp_position.size());
-
-  if (_msg->ki_position.size() == this->drchuboState.ki_position.size())
-    std::copy(_msg->ki_position.begin(), _msg->ki_position.end(),
-      this->drchuboState.ki_position.begin());
-  else
-    ROS_DEBUG("JointCommands message contains different number of"
-      " elements ki_position[%ld] than expected[%ld]",
-      _msg->ki_position.size(), this->drchuboState.ki_position.size());
-
-  if (_msg->kd_position.size() == this->drchuboState.kd_position.size())
-    std::copy(_msg->kd_position.begin(), _msg->kd_position.end(),
-      this->drchuboState.kd_position.begin());
-  else
-    ROS_DEBUG("JointCommands message contains different number of"
-      " elements kd_position[%ld] than expected[%ld]",
-      _msg->kd_position.size(), this->drchuboState.kd_position.size());
-
-  if (_msg->kp_velocity.size() == this->drchuboState.kp_velocity.size())
-    std::copy(_msg->kp_velocity.begin(), _msg->kp_velocity.end(),
-      this->drchuboState.kp_velocity.begin());
-  else
-    ROS_DEBUG("JointCommands message contains different number of"
-      " elements kp_velocity[%ld] than expected[%ld]",
-      _msg->kp_velocity.size(), this->drchuboState.kp_velocity.size());
-
-  if (_msg->i_effort_min.size() == this->drchuboState.i_effort_min.size())
-    std::copy(_msg->i_effort_min.begin(), _msg->i_effort_min.end(),
-      this->drchuboState.i_effort_min.begin());
-  else
-    ROS_DEBUG("JointCommands message contains different number of"
-      " elements i_effort_min[%ld] than expected[%ld]",
-      _msg->i_effort_min.size(), this->drchuboState.i_effort_min.size());
-
-  if (_msg->i_effort_max.size() == this->drchuboState.i_effort_max.size())
-    std::copy(_msg->i_effort_max.begin(), _msg->i_effort_max.end(),
-      this->drchuboState.i_effort_max.begin());
-  else
-    ROS_DEBUG("JointCommands message contains different number of"
-      " elements i_effort_max[%ld] than expected[%ld]",
-      _msg->i_effort_max.size(), this->drchuboState.i_effort_max.size());
-printf("SEt joint commands end \n");
-}
-
-
-/**
- * @function ZeroJointCommands
- * @brief Set JointCommands to Zero
- */
-void drchuboPlugin::ZeroJointCommands()
-{
-  boost::mutex::scoped_lock lock(this->mutex);
-
-  for (unsigned i = 0; i < this->jointNames.size(); ++i)
-  {
-    this->jointCommands.position[i] = 0;
-    this->jointCommands.velocity[i] = 0;
-    this->jointCommands.effort[i] = 0;
-    // store these directly on robotState, more efficient for pub later
-    this->drchuboState.kp_position[i] = 0;
-    this->drchuboState.ki_position[i] = 0;
-    this->drchuboState.kd_position[i] = 0;
-    this->drchuboState.kp_velocity[i] = 0;
-    this->drchuboState.i_effort_min[i] = 0;
-    this->drchuboState.i_effort_max[i] = 0;
-    this->drchuboState.k_effort[i] = 0;
-  }
-}
-
-/**
- * @function LoadPIDGainsFromParameter
- * @brief Get parameters from ROS param and set them in the plugin 
- */
-void drchuboPlugin::LoadPIDGainsFromParameter()
-{
-  boost::mutex::scoped_lock lock(this->mutex);
- 
-  // pull down controller parameters
-  for (unsigned int i = 0; i < this->joints.size(); ++i)
-  {
-    char joint_ns[200] = "";
-    snprintf(joint_ns, sizeof(joint_ns), "drchubo_controller/gains/%s/",
-             this->joints[i]->GetName().c_str());
-    // this is so ugly
-    double p_val = 0, i_val = 0, d_val = 0, i_clamp_val = 0;
-    string p_str = string(joint_ns)+"p";
-    string i_str = string(joint_ns)+"i";
-    string d_str = string(joint_ns)+"d";
-    string i_clamp_str = string(joint_ns)+"i_clamp";
-    if (!this->rosNode->getParam(p_str, p_val) ||
-        !this->rosNode->getParam(i_str, i_val) ||
-        !this->rosNode->getParam(d_str, d_val) ||
-        !this->rosNode->getParam(i_clamp_str, i_clamp_val))
-    {
-      ROS_ERROR("couldn't find a param for %s", joint_ns);
-      continue;
+	
+	if (_msg->kp_position.size() == this->drchuboState.kp_position.size())
+	    std::copy(_msg->kp_position.begin(), _msg->kp_position.end(),
+		      this->drchuboState.kp_position.begin());
+	else
+	    ROS_DEBUG("JointCommands message contains different number of"
+		      " elements kp_position[%ld] than expected[%ld]",
+		      _msg->kp_position.size(), this->drchuboState.kp_position.size());
+	
+	if (_msg->ki_position.size() == this->drchuboState.ki_position.size())
+	    std::copy(_msg->ki_position.begin(), _msg->ki_position.end(),
+		      this->drchuboState.ki_position.begin());
+	else
+	    ROS_DEBUG("JointCommands message contains different number of"
+		      " elements ki_position[%ld] than expected[%ld]",
+		      _msg->ki_position.size(), this->drchuboState.ki_position.size());
+	
+	if (_msg->kd_position.size() == this->drchuboState.kd_position.size())
+	    std::copy(_msg->kd_position.begin(), _msg->kd_position.end(),
+		      this->drchuboState.kd_position.begin());
+	else
+	    ROS_DEBUG("JointCommands message contains different number of"
+		      " elements kd_position[%ld] than expected[%ld]",
+		      _msg->kd_position.size(), this->drchuboState.kd_position.size());
+	
+	if (_msg->kp_velocity.size() == this->drchuboState.kp_velocity.size())
+	    std::copy(_msg->kp_velocity.begin(), _msg->kp_velocity.end(),
+		      this->drchuboState.kp_velocity.begin());
+	else
+	    ROS_DEBUG("JointCommands message contains different number of"
+		      " elements kp_velocity[%ld] than expected[%ld]",
+		      _msg->kp_velocity.size(), this->drchuboState.kp_velocity.size());
+	
+	if (_msg->i_effort_min.size() == this->drchuboState.i_effort_min.size())
+	    std::copy(_msg->i_effort_min.begin(), _msg->i_effort_min.end(),
+		      this->drchuboState.i_effort_min.begin());
+	else
+	    ROS_DEBUG("JointCommands message contains different number of"
+		      " elements i_effort_min[%ld] than expected[%ld]",
+		      _msg->i_effort_min.size(), this->drchuboState.i_effort_min.size());
+	
+	if (_msg->i_effort_max.size() == this->drchuboState.i_effort_max.size())
+	    std::copy(_msg->i_effort_max.begin(), _msg->i_effort_max.end(),
+		      this->drchuboState.i_effort_max.begin());
+	else
+	    ROS_DEBUG("JointCommands message contains different number of"
+		      " elements i_effort_max[%ld] than expected[%ld]",
+		      _msg->i_effort_max.size(), this->drchuboState.i_effort_max.size());
+	printf("SEt joint commands end \n");
     }
-    // store these directly on drchuboState, more efficient for pub later
-    this->drchuboState.kp_position[i]  =  p_val;
-    this->drchuboState.ki_position[i]  =  i_val;
-    this->drchuboState.kd_position[i]  =  d_val;
-    this->drchuboState.i_effort_min[i] = -i_clamp_val;
-    this->drchuboState.i_effort_max[i] =  i_clamp_val;
-    // default k_effort is set to 1, controller relies on PID.
-    this->drchuboState.k_effort[i] = 255;
-  }
-}
 
 
+    /**
+     * @function ZeroJointCommands
+     * @brief Set JointCommands to Zero
+     */
+    void drchuboPlugin::ZeroJointCommands() {
+	boost::mutex::scoped_lock lock(this->mutex);
+	
+	for (unsigned i = 0; i < this->jointNames.size(); ++i) {
+		this->jointCommands.position[i] = 0;
+		this->jointCommands.velocity[i] = 0;
+		this->jointCommands.effort[i] = 0;
+		// store these directly on robotState, more efficient for pub later
+		this->drchuboState.kp_position[i] = 0;
+		this->drchuboState.ki_position[i] = 0;
+		this->drchuboState.kd_position[i] = 0;
+		this->drchuboState.kp_velocity[i] = 0;
+		this->drchuboState.i_effort_min[i] = 0;
+		this->drchuboState.i_effort_max[i] = 0;
+		this->drchuboState.k_effort[i] = 0;
+	}
+    }
+
+    /**
+     * @function LoadPIDGainsFromParameter
+     * @brief Get parameters from ROS param and set them in the plugin 
+     */
+    void drchuboPlugin::LoadPIDGainsFromParameter() {
+
+	boost::mutex::scoped_lock lock(this->mutex);
+	
+	// pull down controller parameters
+	for (unsigned int i = 0; i < this->joints.size(); ++i) {
+	    char joint_ns[200] = "";
+	    snprintf(joint_ns, sizeof(joint_ns), "drchubo_controller/gains/%s/",
+		     this->joints[i]->GetName().c_str());
+	    // this is so ugly
+	    double p_val = 0, i_val = 0, d_val = 0, i_clamp_val = 0;
+	    string p_str = string(joint_ns)+"p";
+	    string i_str = string(joint_ns)+"i";
+	    string d_str = string(joint_ns)+"d";
+	    string i_clamp_str = string(joint_ns)+"i_clamp";
+	    if (!this->rosNode->getParam(p_str, p_val) ||
+		!this->rosNode->getParam(i_str, i_val) ||
+		!this->rosNode->getParam(d_str, d_val) ||
+		!this->rosNode->getParam(i_clamp_str, i_clamp_val))
+		{
+		    ROS_ERROR("couldn't find a param for %s", joint_ns);
+		    continue;
+		}
+	    // store these directly on drchuboState, more efficient for pub later
+	    this->drchuboState.kp_position[i]  =  p_val;
+	    this->drchuboState.ki_position[i]  =  i_val;
+	    this->drchuboState.kd_position[i]  =  d_val;
+	    this->drchuboState.i_effort_min[i] = -i_clamp_val;
+	    this->drchuboState.i_effort_max[i] =  i_clamp_val;
+	    // default k_effort is set to 1, controller relies on PID.
+	    this->drchuboState.k_effort[i] = 255;
+	}
+    }
+    
+    
     /**
      * @function UpdatePIDControl
      */
     void drchuboPlugin::UpdatePIDControl(double _dt) {
 	
 	/// update pid with feedforward force
-	for (unsigned int i = 0; i < this->joints.size(); ++i)
-	    {
-		// truncate joint position within range of motion
-		double positionTarget = math::clamp(
-						    this->jointCommands.position[i],
-						    this->joints[i]->GetLowStop(0).Radian(),
-						    this->joints[i]->GetHighStop(0).Radian());
+	for (unsigned int i = 0; i < this->joints.size(); ++i) {
+	    // truncate joint position within range of motion
+	    double positionTarget = math::clamp(
+						this->jointCommands.position[i],
+						this->joints[i]->GetLowStop(0).Radian(),
+						this->joints[i]->GetHighStop(0).Radian());
+	    
+	    double q_p = positionTarget - this->drchuboState.position[i];
+	    
+	    if (!math::equal(_dt, 0.0))
+		this->errorTerms[i].d_q_p_dt = (q_p - this->errorTerms[i].q_p) / _dt;
+	    
+	    this->errorTerms[i].q_p = q_p;
+	    
+	    
 		
-		double q_p = positionTarget - this->drchuboState.position[i];
-		
-		if (!math::equal(_dt, 0.0))
-		    this->errorTerms[i].d_q_p_dt = (q_p - this->errorTerms[i].q_p) / _dt;
-		
-		this->errorTerms[i].q_p = q_p;
-		
-		
-		
-		this->errorTerms[i].k_i_q_i = math::clamp(
-							  this->errorTerms[i].k_i_q_i +
-							  _dt * this->drchuboState.ki_position[i] * this->errorTerms[i].q_p,
-							  static_cast<double>(this->drchuboState.i_effort_min[i]),
-							  static_cast<double>(this->drchuboState.i_effort_max[i]));
-		
-		// convert k_effort to a double between 0 and 1
-		double k_effort =
-		    static_cast<double>(this->drchuboState.k_effort[i])/255.0;
-		
-		// use gain params to compute force cmd
-		double forceUnclamped =
-		    k_effort * (
-				this->drchuboState.kp_position[i] * this->errorTerms[i].q_p +
-				this->errorTerms[i].k_i_q_i +
-				this->drchuboState.kd_position[i] * this->errorTerms[i].d_q_p_dt +
-				this->jointCommands.velocity[i] +
-				this->jointCommands.effort[i]);
-		
-		// keep unclamped force for integral tie-back calculation
-		double forceClamped = math::clamp(forceUnclamped, -this->effortLimit[i],
-						  this->effortLimit[i]);
-				
-		// apply force to joint
-		this->joints[i]->SetForce(0, forceClamped);
-
-		// fill in jointState efforts
+	    this->errorTerms[i].k_i_q_i = math::clamp(
+						      this->errorTerms[i].k_i_q_i +
+						      _dt * this->drchuboState.ki_position[i] * this->errorTerms[i].q_p,
+						      static_cast<double>(this->drchuboState.i_effort_min[i]),
+						      static_cast<double>(this->drchuboState.i_effort_max[i]));
+	    
+	    // convert k_effort to a double between 0 and 1
+	    double k_effort =
+		static_cast<double>(this->drchuboState.k_effort[i])/255.0;
+	    
+	    // use gain params to compute force cmd
+	    double forceUnclamped =
+		k_effort * (
+			    this->drchuboState.kp_position[i] * this->errorTerms[i].q_p +
+			    this->errorTerms[i].k_i_q_i +
+			    this->drchuboState.kd_position[i] * this->errorTerms[i].d_q_p_dt +
+			    this->jointCommands.velocity[i] +
+			    this->jointCommands.effort[i]);
+	    
+	    // keep unclamped force for integral tie-back calculation
+	    double forceClamped = math::clamp(forceUnclamped, -this->effortLimit[i],
+					      this->effortLimit[i]);
+	    
+	    // apply force to joint
+	    this->joints[i]->SetForce(0, forceClamped);
+	    
+	    // fill in jointState efforts
 		this->drchuboState.effort[i] = forceClamped;
 		this->jointStates.effort[i] = forceClamped;
 		

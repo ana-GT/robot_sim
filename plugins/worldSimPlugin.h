@@ -42,47 +42,46 @@
 
 #include <robot_sim/JointCommands.h>
 
-namespace gazebo
-{
+namespace gazebo {
+
     /**
      * @class worldSimPlugin
      */
-  class worldSimPlugin : public WorldPlugin
-  {
-      /// \brief Constructor
-  public: worldSimPlugin();
-      
-      /// \brief Destructor
-  public: virtual ~worldSimPlugin();
-      
-      /// \brief Load the plugin.
-      /// \param[in] _parent Pointer to parent world.
-      /// \param[in] _sdf Pointer to sdf element.
-  public: void Load( physics::WorldPtr _parent, 
-		     sdf::ElementPtr _sdf );
-      
-      /// \brief Update the controller on every World::Update
-  private: void UpdateStates();
-      
-      /// \brief Sets Atlas planar navigational command velocity
-      /// \param[in] _cmd A Vector3, where:
-      ///   - x is the desired forward linear velocity, positive is robot-forward
-      ///     and negative is robot-back.
-      ///   - y is the desired lateral linear velocity, positive is robot-left
-      ///     and negative is robot-right.
-      ///   - z is the desired heading angular velocity, positive makes
-      ///     the robot turn left, and negative makes the robot turn right
-  public: void SetRobotCmdVel(const geometry_msgs::Twist::ConstPtr &_cmd);
-      
-      /// \brief sets robot's absolute world pose
-      /// \param[in] _cmd Pose command for the robot
-  public: void SetRobotPose(const geometry_msgs::Pose::ConstPtr &_cmd);
-      
-      /// \brief sets robot's joint positions
-      /// \param[in] _cmd configuration made of sensor_msgs::JointState message
-      /// \todo: not yet implemented
-  public: void SetRobotConfiguration(const sensor_msgs::JointState::ConstPtr
-				     &/*_cmd*/);
+    class worldSimPlugin : public WorldPlugin {
+	/// \brief Constructor
+    public: worldSimPlugin();
+	
+	/// \brief Destructor
+    public: virtual ~worldSimPlugin();
+	
+	/// \brief Load the plugin.
+	/// \param[in] _parent Pointer to parent world.
+	/// \param[in] _sdf Pointer to sdf element.
+    public: void Load( physics::WorldPtr _parent, 
+		       sdf::ElementPtr _sdf );
+	
+	/// \brief Update the controller on every World::Update
+    private: void UpdateStates();
+	
+	/// \brief Sets Atlas planar navigational command velocity
+	/// \param[in] _cmd A Vector3, where:
+	///   - x is the desired forward linear velocity, positive is robot-forward
+	///     and negative is robot-back.
+	///   - y is the desired lateral linear velocity, positive is robot-left
+	///     and negative is robot-right.
+	///   - z is the desired heading angular velocity, positive makes
+	///     the robot turn left, and negative makes the robot turn right
+    public: void SetRobotCmdVel(const geometry_msgs::Twist::ConstPtr &_cmd);
+	
+	/// \brief sets robot's absolute world pose
+	/// \param[in] _cmd Pose command for the robot
+    public: void SetRobotPose(const geometry_msgs::Pose::ConstPtr &_cmd);
+	
+	/// \brief sets robot's joint positions
+	/// \param[in] _cmd configuration made of sensor_msgs::JointState message
+	/// \todo: not yet implemented
+    public: void SetRobotConfiguration(const sensor_msgs::JointState::ConstPtr
+				       &/*_cmd*/);
             
         
     /// \brief sets robot mode via ros topic
@@ -215,7 +214,7 @@ namespace gazebo
       private: ros::Subscriber subJointStates;
 
 	  /// \brief publisher of joint_commands
-      private: ros::Publisher pubDrchuboCommand;
+      private: ros::Publisher pubJointCommand;
 	  
 	  /// \brief ros node handle
       private: ros::NodeHandle* rosNode;

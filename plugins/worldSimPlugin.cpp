@@ -113,14 +113,14 @@ namespace gazebo {
     void worldSimPlugin::LoadWorldSimROSAPI() {
 	
 	// ros subscription
-	std::string robot_enter_car_topic_name = "drc_world/robot_enter_car";
+	std::string robot_enter_car_topic_name = "drchubo_world/robot_enter_car";
 	ros::SubscribeOptions robot_enter_car_so =
 	    ros::SubscribeOptions::create<geometry_msgs::Pose>( robot_enter_car_topic_name, 100,
 								boost::bind(&worldSimPlugin::RobotEnterCar, this, _1),
 								ros::VoidPtr(), &this->rosQueue);
 	this->subRobotEnterCar = this->rosNode->subscribe(robot_enter_car_so);
 	
-	std::string robot_exit_car_topic_name = "drc_world/robot_exit_car";
+	std::string robot_exit_car_topic_name = "drchubo_world/robot_exit_car";
 	ros::SubscribeOptions robot_exit_car_so =
 	    ros::SubscribeOptions::create<geometry_msgs::Pose>( robot_exit_car_topic_name, 100,
 								boost::bind(&worldSimPlugin::RobotExitCar, this, _1),
@@ -262,7 +262,7 @@ namespace gazebo {
 
 	// Check if vehicle.model is loaded
 	if (!this->vehicle.model) {
-	    ROS_ERROR("vehicle model not found, cannot enter car.");
+	    ROS_ERROR("vehicle model not found, cannot enter car!");
 	    return;
 	}
 
@@ -274,7 +274,7 @@ namespace gazebo {
 				      _pose->position.z), q);
 	
 	// hardcoded offset of the robot when it's seated in the vehicle driver seat.
-	this->drchubo.vehicleRelPose = math::Pose(math::Vector3(-0.06, 0.3, 2.02),
+	this->drchubo.vehicleRelPose = math::Pose(math::Vector3(0.09, 0.3, 1.13),
 						  math::Quaternion());
 	
 	// turn physics off while manipulating things
@@ -309,7 +309,7 @@ namespace gazebo {
 	// Check if drcVehicle.model is loaded
 	if (!this->vehicle.model)
 	    {
-		ROS_ERROR("drc_vehicle model not found, cannot exit car.");
+		ROS_ERROR("vehicle model not found, cannot exit car!");
 		return;
 	    }
 	math::Quaternion q(_pose->orientation.w, _pose->orientation.x,
@@ -350,51 +350,51 @@ namespace gazebo {
     }
 
 
-////////////////////////////////////////////////////////////////////////////////
-// Play the trajectory, update states
-void worldSimPlugin::UpdateStates()
-{
-  double curTime = this->world->GetSimTime().Double();
+    /**
+     * @function UpdateStates
+     */
+    // Play the trajectory, update states
+    void worldSimPlugin::UpdateStates() {
 
-  if (curTime > this->lastUpdateTime)
-  {
-
-    double dt = curTime - this->lastUpdateTime;
-
-    if (this->warpRobotWithCmdVel)
-    {
-      this->lastUpdateTime = curTime;
-      math::Pose cur_pose = this->drchubo.pinLink->GetWorldPose();
-      math::Pose new_pose = cur_pose;
-
-      // increment x,y in cur_pose frame
-      math::Vector3 cmd(this->robotCmdVel.linear.x,
-                        this->robotCmdVel.linear.y, 0);
-      cmd = cur_pose.rot.RotateVector(cmd);
-
-      new_pose.pos = cur_pose.pos + cmd * dt;
-      // prevent robot from drifting vertically
-      new_pose.pos.z = this->drchubo.initialPose.pos.z;
-
-      math::Vector3 rpy = cur_pose.rot.GetAsEuler();
-      // decay non-yaw tilts
-      rpy.x = 0;
-      rpy.y = 0;
-      rpy.z = rpy.z + this->robotCmdVel.angular.z * dt;
-
-      new_pose.rot.SetFromEuler(rpy);
-
-      // set this as the new anchor pose of the pin joint
-      // UNCOMMENT THIS SOON!!!!!!!!!!!!!!!!!!!!!!1
-     /*
-      this->Teleport(this->atlas.pinLink,
-                     this->atlas.pinJoint,
-                     new_pose);
-      */
+	double curTime = this->world->GetSimTime().Double();
+	
+	if (curTime > this->lastUpdateTime) {
+	    
+	    double dt = curTime - this->lastUpdateTime;
+	    
+	    if (this->warpRobotWithCmdVel) {
+		this->lastUpdateTime = curTime;
+		math::Pose cur_pose = this->drchubo.pinLink->GetWorldPose();
+		math::Pose new_pose = cur_pose;
+		
+		// increment x,y in cur_pose frame
+		math::Vector3 cmd(this->robotCmdVel.linear.x,
+				  this->robotCmdVel.linear.y, 0);
+		cmd = cur_pose.rot.RotateVector(cmd);
+		
+		new_pose.pos = cur_pose.pos + cmd * dt;
+		// prevent robot from drifting vertically
+		new_pose.pos.z = this->drchubo.initialPose.pos.z;
+		
+		math::Vector3 rpy = cur_pose.rot.GetAsEuler();
+		// decay non-yaw tilts
+		rpy.x = 0;
+		rpy.y = 0;
+		rpy.z = rpy.z + this->robotCmdVel.angular.z * dt;
+		
+		new_pose.rot.SetFromEuler(rpy);
+		
+		// set this as the new anchor pose of the pin joint
+		// UNCOMMENT THIS SOON!!!!!!!!!!!!!!!!!!!!!!1
+		/*
+		  this->Teleport(this->atlas.pinLink,
+		  this->atlas.pinJoint,
+		  new_pose);
+		*/
+	    }
+	}
     }
-  }
-}
-
+    
     /**
      * @function ROSQueueThread
      */
@@ -514,7 +514,7 @@ void worldSimPlugin::UpdateStates()
 void worldSimPlugin::SetRobotConfiguration( const sensor_msgs::JointState::ConstPtr &_cmd ) {
 
     // This function is planned but not yet implemented.
-    ROS_ERROR("The atlas/configuration handler is not implemented.\n");
+    ROS_ERROR("The drchubo/configuration handler is not implemented.\n");
     
 }
 
@@ -524,7 +524,7 @@ worldSimPlugin::drchuboCommandController::drchuboCommandController() {
     // initialize ros
     if (!ros::isInitialized()) {
 
-	gzerr << "Not loading AtlasCommandController since ROS hasn't been "
+	gzerr << "Not loading drchuboCommandController since ROS hasn't been "
 	      << "properly initialized.  Try starting Gazebo with"
 	      << " ros plugin:\n"
 	      << "  gazebo -s libgazebo_ros_api_plugin.so\n";
@@ -610,9 +610,9 @@ worldSimPlugin::drchuboCommandController::drchuboCommandController() {
 	this->jc.kp_velocity[i]  = 0;
     }
 
-  this->pubDrchuboCommand =
+  this->pubJointCommand =
     this->rosNode->advertise<robot_sim::JointCommands>(
-    "/drchubo/drchubo_command", 1, true);
+    "/drchubo/joint_commands", 1, true);
 
 
   // ros::SubscribeOptions jointStatesSo =
@@ -679,7 +679,7 @@ void worldSimPlugin::drchuboCommandController::SetPIDStand( physics::ModelPtr _d
   this->jc.position[25] =  -0.498238742351532;
   this->jc.position[26] =  0.0003156556049361825;
   this->jc.position[27] =   0.004448802210390568;
-
+  this->jc.position[27] =   0.00;
 
   for (unsigned int i = 0; i < this->jointNames.size(); ++i)
     this->jc.k_effort[i] =  255;
@@ -691,8 +691,8 @@ void worldSimPlugin::drchuboCommandController::SetPIDStand( physics::ModelPtr _d
 
   _drchuboModel->SetJointPositions(jps);
 
-  // publish AtlasCommand
-  this->pubDrchuboCommand.publish(jc);
+  // publish jointCommands
+  this->pubJointCommand.publish(jc);
 }
 
 
@@ -719,22 +719,22 @@ void worldSimPlugin::drchuboCommandController::SetSeatingConfiguration( physics:
     this->jc.position[9] =  1.60;
     this->jc.position[10] =  -0.10;
     this->jc.position[11] =  0.00;
-
-    this->jc.position[12] =   0.00;
-    this->jc.position[13] =   0.00;
-    this->jc.position[14] =   0.00;
-    this->jc.position[15] =   1.50;
-    this->jc.position[16] =   1.50;
-    this->jc.position[17] =  -3.00;
-    this->jc.position[18] =  0.00;
-
-    this->jc.position[19] =   0.00;
-    this->jc.position[20] =   0.00;
-    this->jc.position[21] =   0.00;
-    this->jc.position[22] =   1.50;
-    this->jc.position[23] =  -1.50;
-    this->jc.position[24] =  -3.00;
-    this->jc.position[25] =  0.00;
+    // Left Arm
+    this->jc.position[12] =   -1.0472; // Forward 60
+    this->jc.position[13] =   1.0472;
+    this->jc.position[14] =   -1.57;
+    this->jc.position[15] =   -2.26;
+    this->jc.position[16] =   0.00;
+    this->jc.position[17] =   1.57;
+    this->jc.position[18] =   0.00;
+    // Right Arm
+    this->jc.position[19] =   -1.0472; // Forward 60
+    this->jc.position[20] =   -1.0472;
+    this->jc.position[21] =   1.57;
+    this->jc.position[22] =   -2.26;
+    this->jc.position[23] =   0.00;
+    this->jc.position[24] =   1.57;
+    this->jc.position[25] =   0.00;
 
     this->jc.position[26]  =   0.00;
     this->jc.position[27]  =   0.00;
@@ -749,56 +749,56 @@ void worldSimPlugin::drchuboCommandController::SetSeatingConfiguration( physics:
     
     _drchuboModel->SetJointPositions(jps);
     
-    // publish AtlasCommand
-    this->pubDrchuboCommand.publish(jc);
+    // publish jointCommand
+    this->pubJointCommand.publish(jc);
 }
 
-/**
- * @function SetStandingConfiguration
- * @brief
- */
-void worldSimPlugin::drchuboCommandController::SetStandingConfiguration( physics::ModelPtr _drchuboModel ) {
- 
-    // standing configuration
-    this->jc.header.stamp = ros::Time::now();
-    this->jc.position[0]  =   0.00;
-    this->jc.position[1]  =   0.00;
-    this->jc.position[2]  =   0.00;
-    this->jc.position[3]  =   0.00;
-    this->jc.position[4]  =   0.00;
-    this->jc.position[5]  =   0.00;
-    this->jc.position[6]  =   0.00;
-    this->jc.position[7]  =   0.00;
-    this->jc.position[8]  =   0.00;
-    this->jc.position[9]  =   0.00;
-    this->jc.position[10] =   0.00;
-    this->jc.position[11] =   0.00;
-    this->jc.position[12] =   0.00;
-    this->jc.position[13] =   0.00;
-    this->jc.position[14] =   0.00;
-    this->jc.position[15] =   0.00;
-    this->jc.position[16] =   0.00;
-    this->jc.position[17] =  -1.60;
-    this->jc.position[18] =   0.00;
-    this->jc.position[19] =   0.00;
-    this->jc.position[20] =   0.00;
-    this->jc.position[21] =   0.00;
-    this->jc.position[22] =   0.00;
-    this->jc.position[23] =   1.60;
-    this->jc.position[24] =   0.00;
-    this->jc.position[25] =   0.00;
-    this->jc.position[26] =   0.00;
-    this->jc.position[27] =   0.00;
-
-
-  // set joint positions
-  std::map<std::string, double> jps;
-  for (unsigned int i = 0; i < this->jointNames.size(); ++i)
-    jps.insert(std::make_pair(this->jointNames[i], this->jc.position[i]));
-
-  _drchuboModel->SetJointPositions(jps);
-
-  // publish AtlasCommand
-  this->pubDrchuboCommand.publish(jc);
-}
+    /**
+     * @function SetStandingConfiguration
+     * @brief
+     */
+    void worldSimPlugin::drchuboCommandController::SetStandingConfiguration( physics::ModelPtr _drchuboModel ) {
+	
+	// standing configuration
+	this->jc.header.stamp = ros::Time::now();
+	this->jc.position[0]  =   0.00;
+	this->jc.position[1]  =   0.00;
+	this->jc.position[2]  =   0.00;
+	this->jc.position[3]  =   0.00;
+	this->jc.position[4]  =   0.00;
+	this->jc.position[5]  =   0.00;
+	this->jc.position[6]  =   0.00;
+	this->jc.position[7]  =   0.00;
+	this->jc.position[8]  =   0.00;
+	this->jc.position[9]  =   0.00;
+	this->jc.position[10] =   0.00;
+	this->jc.position[11] =   0.00;
+	this->jc.position[12] =   0.00;
+	this->jc.position[13] =   0.00;
+	this->jc.position[14] =   0.00;
+	this->jc.position[15] =   0.00;
+	this->jc.position[16] =   0.00;
+	this->jc.position[17] =  -1.60;
+	this->jc.position[18] =   0.00;
+	this->jc.position[19] =   0.00;
+	this->jc.position[20] =   0.00;
+	this->jc.position[21] =   0.00;
+	this->jc.position[22] =   0.00;
+	this->jc.position[23] =   1.60;
+	this->jc.position[24] =   0.00;
+	this->jc.position[25] =   0.00;
+	this->jc.position[26] =   0.00;
+	this->jc.position[27] =   0.00;
+	
+	
+	// set joint positions
+	std::map<std::string, double> jps;
+	for (unsigned int i = 0; i < this->jointNames.size(); ++i)
+	    jps.insert(std::make_pair(this->jointNames[i], this->jc.position[i]));
+	
+	_drchuboModel->SetJointPositions(jps);
+	
+	// publish AtlasCommand
+	this->pubJointCommand.publish(jc);
+    }
 }
