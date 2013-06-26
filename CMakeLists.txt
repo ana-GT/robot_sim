@@ -36,3 +36,6 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 # Generate the plugins
 add_subdirectory( plugins )
+
+# Generate nodes
+add_subdirectory( src )

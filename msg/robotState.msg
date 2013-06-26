@@ -46,6 +46,14 @@ int32 TSY = 26
 int32 NKY = 27
 int32 NKP = 28
 
+int32 LF1 = 29
+int32 LF2 = 30
+int32 LF3 = 31
+
+int32 RF1 = 32
+int32 RF2 = 33
+int32 RF3 = 34
+
 # repeating data from osrf_msgs/JointCommands as joint_states
 float32[] position
 float32[] velocity

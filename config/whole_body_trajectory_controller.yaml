@@ -31,14 +31,20 @@ drchubo_controller:
     - TSY
     - NKY
     - NKP
+    - LF1
+    - LF2 
+    - LF3
+    - RF1
+    - RF2
+    - RF3
   gains:
-    LHY: {p:     5.0, d:  0.01, i:   0.0, i_clamp:    0.0}
+    LHY: {p:     50.0, d:  0.01, i:   0.0, i_clamp:    0.0}
     LHR: {p:   100.0, d:   1.0, i:   0.0, i_clamp:    0.0}
     LHP: {p:  2000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
     LKP: {p:  1000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
     LAP: {p:   900.0, d:   2.0, i:   0.0, i_clamp:    0.0}
     LAR: {p:   300.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    RHY: {p:     5.0, d:  0.01, i:   0.0, i_clamp:    0.0}
+    RHY: {p:    50.0, d:  0.01, i:   0.0, i_clamp:    0.0}
     RHR: {p:   100.0, d:   1.0, i:   0.0, i_clamp:    0.0}
     RHP: {p:  2000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
     RKP: {p:  1000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
@@ -61,6 +67,12 @@ drchubo_controller:
     TSY: {p:    20.0, d:   0.1, i:   0.0, i_clamp:    0.0}
     NKY: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
     NKP: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    LF1: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    LF2: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    LF3: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    RF1: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    RF2: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    RF3: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
   joint_trajectory_action_node:
     joints:
     - LHY
@@ -92,6 +104,12 @@ drchubo_controller:
     - TSY
     - NKY
     - NKP
+    - LF1
+    - LF2
+    - LF3
+    - RF1
+    - RF2
+    - RF3
     constraints:
       goal_time: 0.0
       LHY:
@@ -152,4 +170,15 @@ drchubo_controller:
         goal: 0.02
       NKP:
         goal: 0.02
-
+      LF1:
+        goal: 0.02
+      LF2:
+        goal: 0.02
+      LF3:
+        goal: 0.02
+      RF1:
+        goal: 0.02
+      RF2:
+        goal: 0.02
+      RF3:
+        goal: 0.02

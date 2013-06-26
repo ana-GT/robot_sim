@@ -142,11 +142,9 @@ namespace gazebo
     /// \param[in] _dt time step size since last update
     private: void UpdatePIDControl(double _dt);
 
-    ////////////////////////////////////////////////////////////////////////////
-    //                                                                        //
-    //  Some Helper Functions                                                 //
-    //                                                                        //
-    ////////////////////////////////////////////////////////////////////////////
+	// ************************************
+	//  Some Helper Functions                                                 
+	// ************************************
     private: void LoadPIDGainsFromParameter();
     private: void ZeroJointCommands();
 
@@ -181,11 +179,23 @@ namespace gazebo
 
     private: boost::mutex mutex;
 
-    /// \brief: for keeping track of internal controller update rates.
+	/// \brief: for keeping track of internal controller update rates.
     private: common::Time lastControllerUpdateTime;
-
-    // ros publish multi queue, prevents publish() blocking
+	
+	// \brief: ros publish multi queue, prevents publish() blocking
     private: PubMultiQueue pmq;
+	
+	/// \brief Current joint cfm damping coefficient
+    private: std::vector<double> lastJointCFMDamping;
+
+	/// \brief: Current joint damping coefficient for the Model
+    private: std::vector<double> jointDampingModel;
+	
+	/// \brief: Joint damping coefficient upper bound
+    private: std::vector<double> jointDampingMax;
+
+	/// \brief: Joint damping coefficient lower bounds
+    private: std::vector<double> jointDampingMin;
 
     ////////////////////////////////////////////////////////////////////
     //                                                                //

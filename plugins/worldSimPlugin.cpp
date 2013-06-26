@@ -104,6 +104,10 @@ namespace gazebo {
 	// simulation iteration.
 	this->updateConnection = event::Events::ConnectWorldUpdateBegin(
 									boost::bind(&worldSimPlugin::UpdateStates, this));
+
+	// Set default configuration
+	this->drchuboCommandController.SetDefaultConfiguration( this->drchubo.model );
+
     }
     
 
@@ -569,6 +573,13 @@ worldSimPlugin::drchuboCommandController::drchuboCommandController() {
     this->jointNames.push_back("drchubo::NKY");
     this->jointNames.push_back("drchubo::NKP");
 
+    this->jointNames.push_back("drchubo::LF1");
+    this->jointNames.push_back("drchubo::LF2");
+    this->jointNames.push_back("drchubo::LF3");
+
+    this->jointNames.push_back("drchubo::RF1");
+    this->jointNames.push_back("drchubo::RF2");
+    this->jointNames.push_back("drchubo::RF3");
 
     unsigned int n = this->jointNames.size();
     this->jc.position.resize(n);
@@ -789,6 +800,62 @@ void worldSimPlugin::drchuboCommandController::SetSeatingConfiguration( physics:
 	this->jc.position[25] =   0.00;
 	this->jc.position[26] =   0.00;
 	this->jc.position[27] =   0.00;
+	
+	
+	// set joint positions
+	std::map<std::string, double> jps;
+	for (unsigned int i = 0; i < this->jointNames.size(); ++i)
+	    jps.insert(std::make_pair(this->jointNames[i], this->jc.position[i]));
+	
+	_drchuboModel->SetJointPositions(jps);
+	
+	// publish AtlasCommand
+	this->pubJointCommand.publish(jc);
+    }
+
+
+    /**
+     * @function SetDefaultConfiguration
+     * @brief
+     */
+    void worldSimPlugin::drchuboCommandController::SetDefaultConfiguration( physics::ModelPtr _drchuboModel ) {
+	
+	// standing configuration
+	this->jc.header.stamp = ros::Time::now();
+	// Left Leg
+	this->jc.position[0]  =   0.00;
+	this->jc.position[1]  =   0.00;
+	this->jc.position[2]  = -0.2618;
+	this->jc.position[3]  =  0.5236;
+	this->jc.position[4]  = -0.2618;
+	this->jc.position[5]  =   0.00;
+	// Right Leg
+	this->jc.position[6]  =   0.00;
+	this->jc.position[7]  =   0.00;
+	this->jc.position[8]  = -0.2618;
+	this->jc.position[9]  =  0.5236;
+	this->jc.position[10] = -0.2618;
+	this->jc.position[11] =   0.00;
+	// Left Arm
+	this->jc.position[12] =   0.00;
+	this->jc.position[13] =   0.52;
+	this->jc.position[14] =   0.00;
+	this->jc.position[15] =   0.00;
+	this->jc.position[16] =  -1.57;
+	this->jc.position[17] =  1.60;
+	this->jc.position[18] =   0.00;
+	// Right Arm
+	this->jc.position[19] =   0.00;
+	this->jc.position[20] =  -0.52;
+	this->jc.position[21] =   0.00;
+	this->jc.position[22] =   0.00;
+	this->jc.position[23] =  -1.57;
+	this->jc.position[24] =   1.60;
+	this->jc.position[25] =   0.00;
+	// Torso and Neck
+	this->jc.position[26] =   0.00;
+	this->jc.position[27] =   0.00;
+	this->jc.position[28] =   0.00;
 	
 	
 	// set joint positions

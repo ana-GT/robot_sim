@@ -210,6 +210,10 @@ namespace gazebo {
       /// \param[in] _atlasModel pointer to atlas model
       private: void SetStandingConfiguration( physics::ModelPtr _drchuboModel );
 
+      /// \brief standing configuration of the robot when it exits the vehicle.
+      /// \param[in] _atlasModel pointer to atlas model
+      private: void SetDefaultConfiguration( physics::ModelPtr _drchuboModel );
+
 	  /// \brief subscriber to joint_states
       private: ros::Subscriber subJointStates;
 
