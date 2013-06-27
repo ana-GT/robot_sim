@@ -395,7 +395,7 @@ namespace gazebo
 	    ROS_DEBUG("JointCommands message contains different number of"
 		      " elements i_effort_max[%ld] than expected[%ld]",
 		      _msg->i_effort_max.size(), this->drchuboState.i_effort_max.size());
-	printf("SEt joint commands end \n");
+	printf("Set joint commands end \n");
     }
 
 

@@ -92,7 +92,7 @@ bool GainsTuningCmd::init( const std::string &_master_url,
 
     // Subscribe
     // Robot states
-    robotState_sub = rosNode->subscribe( "/drchubo/robot_state",
+    robotState_sub = rosNode->subscribe( "drchubo/robot_state",
 					 1, 
 					 &GainsTuningCmd::robotState_cb,
 					 this );
@@ -229,4 +229,6 @@ void GainsTuningCmd::sendGainCommand( std::vector<std::vector<double> > _gains )
     // Send
     this->jointCommand_pub.publish( this->jointCmd_msg );
     ros::spinOnce();
+    ros::Duration(0.1).sleep();
+    printf("JUST SENT GAIN COMMAND! \n");
 }
