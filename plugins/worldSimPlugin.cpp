@@ -623,7 +623,7 @@ worldSimPlugin::drchuboCommandController::drchuboCommandController() {
 
   this->pubJointCommand =
     this->rosNode->advertise<robot_sim::JointCommands>(
-    "/drchubo/joint_commands", 1, true);
+    "drchubo/joint_commands", 1, true);
 
 
   // ros::SubscribeOptions jointStatesSo =
@@ -690,7 +690,7 @@ void worldSimPlugin::drchuboCommandController::SetPIDStand( physics::ModelPtr _d
   this->jc.position[25] =  -0.498238742351532;
   this->jc.position[26] =  0.0003156556049361825;
   this->jc.position[27] =   0.004448802210390568;
-  this->jc.position[27] =   0.00;
+  this->jc.position[28] =   0.00;
 
   for (unsigned int i = 0; i < this->jointNames.size(); ++i)
     this->jc.k_effort[i] =  255;
@@ -746,7 +746,7 @@ void worldSimPlugin::drchuboCommandController::SetSeatingConfiguration( physics:
     this->jc.position[23] =   0.00;
     this->jc.position[24] =   1.57;
     this->jc.position[25] =   0.00;
-
+    // Torso and Neck
     this->jc.position[26]  =   0.00;
     this->jc.position[27]  =   0.00;
     this->jc.position[28]  =   0.00;

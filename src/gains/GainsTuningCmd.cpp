@@ -100,7 +100,9 @@ bool GainsTuningCmd::init( const std::string &_master_url,
     // Publish
     // Joint commands
     this->jointCommand_pub = this->rosNode->advertise<robot_sim::JointCommands>("drchubo/joint_commands",
-										1);
+										1, true);
+    ros::spinOnce();
+    ros::Duration(0.1);
 
     ROS_INFO(" GainsTuningCmd - Successful initialization");
 }
@@ -209,17 +211,14 @@ void GainsTuningCmd::sendBasicCommand( int _type ) {
  * @function sendGainCommand
  */
 void GainsTuningCmd::sendGainCommand( std::vector<std::vector<double> > _gains ) {
-
+    ros::spinOnce();
     // Build the messsage
     // Time stamp
     this->jointCmd_msg.header.stamp = ros::Time::now();
-    // Same target positions
-    std::copy( this->latestState.position.begin(),
-	       this->latestState.position.end(),
-	       this->jointCmd_msg.position.begin() );
 
     // Get the gains
     for( int i = 0; i < this->numJoints; ++i ) {
+ 	this->jointCmd_msg.position[i] = this->latestState.position[i];
 	this->jointCmd_msg.kp_position[i] = _gains[i][0];
 	this->jointCmd_msg.kd_position[i] = _gains[i][1];
 	this->jointCmd_msg.ki_position[i] = _gains[i][2];

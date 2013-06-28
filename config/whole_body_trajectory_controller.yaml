@@ -38,41 +38,41 @@ drchubo_controller:
     - RF2
     - RF3
   gains:
-    LHY: {p:     50.0, d:  0.01, i:   0.0, i_clamp:    0.0}
-    LHR: {p:   100.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    LHP: {p:  2000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
-    LKP: {p:  1000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
-    LAP: {p:   900.0, d:   2.0, i:   0.0, i_clamp:    0.0}
-    LAR: {p:   300.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    RHY: {p:    50.0, d:  0.01, i:   0.0, i_clamp:    0.0}
-    RHR: {p:   100.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    RHP: {p:  2000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
-    RKP: {p:  1000.0, d:  10.0, i:   0.0, i_clamp:    0.0}
-    RAP: {p:   900.0, d:   2.0, i:   0.0, i_clamp:    0.0}
-    RAR: {p:   300.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    LSP: {p:  2000.0, d:   3.0, i:   0.0, i_clamp:    0.0}
-    LSR: {p:  1000.0, d:  20.0, i:   0.0, i_clamp:    0.0}
-    LSY: {p:  1000.0, d:  20.0, i:   0.0, i_clamp:    0.0}
-    LEP: {p:   200.0, d:   3.0, i:   0.0, i_clamp:    0.0}
-    LWY: {p:   200.0, d:   3.0, i:   0.0, i_clamp:    0.0}
-    LWP: {p:    50.0, d:   0.1, i:   0.0, i_clamp:    0.0}
-    LWR: {p:   100.0, d:   0.2, i:   0.0, i_clamp:    0.0}
-    RSP: {p:  2000.0, d:   3.0, i:   0.0, i_clamp:    0.0}
-    RSR: {p:  1000.0, d:  20.0, i:   0.0, i_clamp:    0.0}
-    RSY: {p:  1000.0, d:  20.0, i:   0.0, i_clamp:    0.0}
-    REP: {p:   200.0, d:   3.0, i:   0.0, i_clamp:    0.0}
-    RWY: {p:   200.0, d:   3.0, i:   0.0, i_clamp:    0.0}
-    RWP: {p:    50.0, d:   0.1, i:   0.0, i_clamp:    0.0}
-    RWR: {p:   100.0, d:   0.2, i:   0.0, i_clamp:    0.0}
-    TSY: {p:    20.0, d:   0.1, i:   0.0, i_clamp:    0.0}
-    NKY: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    NKP: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    LF1: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    LF2: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    LF3: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    RF1: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    RF2: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
-    RF3: {p:    20.0, d:   1.0, i:   0.0, i_clamp:    0.0}
+    LHY: {p:  100.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    LHR: {p:  200.0, d:  20.0, i:   0.0, i_clamp:    0.0}
+    LHP: {p:  100.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    LKP: {p:  100.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    LAP: {p:  200.0, d:  20.0, i:   0.0, i_clamp:    0.0}
+    LAR: {p:  100.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    RHY: {p:  100.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    RHR: {p:  200.0, d:  20.0, i:   0.0, i_clamp:    0.0}
+    RHP: {p:  100.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    RKP: {p:  100.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    RAP: {p:  200.0, d:  20.0, i:   0.0, i_clamp:    0.0}
+    RAR: {p:  100.0, d:  10.0, i:   0.0, i_clamp:    0.0}
+    LSP: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    LSR: {p:  100.0, d: 10, i:   0.0, i_clamp:    0.0}
+    LSY: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    LEP: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    LWY: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    LWP: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    LWR: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    RSP: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    RSR: {p:  100.0, d:  10, i:   0.0, i_clamp:    0.0}
+    RSY: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    REP: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    RWY: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    RWP: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    RWR: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    TSY: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    NKY: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    NKP: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    LF1: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    LF2: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    LF3: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    RF1: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    RF2: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
+    RF3: {p:  50.0, d:  5, i:   0.0, i_clamp:    0.0}
   joint_trajectory_action_node:
     joints:
     - LHY

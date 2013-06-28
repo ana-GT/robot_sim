@@ -319,7 +319,7 @@ namespace gazebo
      * @function SetJointCommands
      */
     void drchuboPlugin::SetJointCommands( const robot_sim::JointCommands::ConstPtr &_msg ) {
-	printf("Set joint commands start \n");
+	printf("Set joint commands start XXXXXXXXXXXXXXXXXXXX\n");
 	boost::mutex::scoped_lock lock(this->mutex);
 	
 	this->jointCommands.header.stamp = _msg->header.stamp;
@@ -395,7 +395,7 @@ namespace gazebo
 	    ROS_DEBUG("JointCommands message contains different number of"
 		      " elements i_effort_max[%ld] than expected[%ld]",
 		      _msg->i_effort_max.size(), this->drchuboState.i_effort_max.size());
-	printf("Set joint commands end \n");
+	printf("Set joint commands end XXXXXXXXXXXXXXXXXXXXXX \n");
     }
 
 

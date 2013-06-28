@@ -15,8 +15,8 @@ GainsTuningWidget::GainsTuningWidget( QWidget* _parent )
 
     // Setup commander
     gtc.init( std::string("http://localhost:11311"),
-	      std::string("143.215.204.77"),
-	      std::string("graspCommand") );
+	      std::string("192.168.1.92"),
+	      std::string("gainsTuning") );
 }
 
 /**
