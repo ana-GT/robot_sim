@@ -79,48 +79,49 @@ namespace gazebo
 	// common::Time(2.0 * this->world->GetPhysicsEngine()->GetMaxStepSize());
 
 	// init joints, hardcoded for drchubo
+	// Left Leg
 	this->jointNames.push_back("LHY");
 	this->jointNames.push_back("LHR");
 	this->jointNames.push_back("LHP");
 	this->jointNames.push_back("LKP");
 	this->jointNames.push_back("LAP");
 	this->jointNames.push_back("LAR");
-
+	// Right Leg
 	this->jointNames.push_back("RHY");
 	this->jointNames.push_back("RHR");
 	this->jointNames.push_back("RHP");
 	this->jointNames.push_back("RKP");
 	this->jointNames.push_back("RAP");
 	this->jointNames.push_back("RAR");
-
-	this->jointNames.push_back("LSP");
+	// Left Arm
+/*	this->jointNames.push_back("LSP");
 	this->jointNames.push_back("LSR");
 	this->jointNames.push_back("LSY");
 	this->jointNames.push_back("LEP");
 	this->jointNames.push_back("LWY");
 	this->jointNames.push_back("LWP");
 	this->jointNames.push_back("LWR");
-
+	// Right Arm
 	this->jointNames.push_back("RSP");
 	this->jointNames.push_back("RSR");
 	this->jointNames.push_back("RSY");
 	this->jointNames.push_back("REP");
 	this->jointNames.push_back("RWY");
 	this->jointNames.push_back("RWP");
-	this->jointNames.push_back("RWR");
-
+	this->jointNames.push_back("RWR");*/
+	// Torso and Neck
 	this->jointNames.push_back("TSY");
-	this->jointNames.push_back("NKY");
+/*	this->jointNames.push_back("NKY");
 	this->jointNames.push_back("NKP");
-
+	// Left Fingers
 	this->jointNames.push_back("LF1");
 	this->jointNames.push_back("LF2");
 	this->jointNames.push_back("LF3");
-
+	// Right Fingers
 	this->jointNames.push_back("RF1");
 	this->jointNames.push_back("RF2");
 	this->jointNames.push_back("RF3");
-
+*/
 
 	// get pointers to joints from gazebo
 	this->joints.resize(this->jointNames.size());
@@ -170,15 +171,15 @@ namespace gazebo
 	    double maxEffort = this->joints[i]->GetEffortLimit(0);
 	    double maxVelocity = this->joints[i]->GetVelocityLimit(0);
 	    if( math::equal(maxVelocity, 0.0) ) {
-		ROS_ERROR("Set joint damping upper limit:"
-			  "Joint [%s]"
-			  "effort limit [%f] velocity limit[%f]:"
-			  "velocity limit is unbounded, artificially setting"
-			  "damping coefficient max limit to 1.0. This should not"
-			  "have happened, check your model!", this->jointNames[i].c_str(), maxEffort, maxVelocity );		
-		maxVelocity = maxEffort;
+	      ROS_ERROR("Set joint damping upper limit:"
+			"Joint [%s]"
+			"effort limit [%f] velocity limit[%f]:"
+			"velocity limit is unbounded, artificially setting"
+			"damping coefficient max limit to 1.0. This should not"
+			"have happened, check your model!", this->jointNames[i].c_str(), maxEffort, maxVelocity );		
+	      maxVelocity = maxEffort;
 	    }
-
+	    
 	    this->jointDampingMax.push_back( maxEffort / maxVelocity * 50 );
 	    this->jointDampingMin.push_back( jointDampingLowerBound );
 	    this->jointDampingModel.push_back( this->joints[i]->GetDamping(0) );

@@ -24,7 +24,7 @@ generate_messages( DEPENDENCIES std_msgs )
 
 
 catkin_package(
-    INCLUDE_DIRS include
+    #INCLUDE_DIRS include
     LIBRARIES ${PROJECT_NAME}
     CATKIN_DEPENDS roscpp rospy
     DEPENDS gazebo )

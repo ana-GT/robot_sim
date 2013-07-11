@@ -1,7 +1,7 @@
 <launch>
 
   <arg name="gzname" default="gazebo"/>
-  <arg name="gzworld" default="$(find robot_sim)/worlds/drchubo_test.world"/>
+  <arg name="gzworld" default="$(find robot_sim)/worlds/drchubo_lower.world"/>
   <arg name="extra_gazebo_args" default="" />
 
    <!-- Beware, if I call the node "gazebo", I get a RosInvalidName exception with a "/" related -->

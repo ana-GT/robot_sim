@@ -26,15 +26,16 @@
       <uri>model://sun</uri>
     </include>
 
+	<!-- Ground Plane -->
     <include>
       <uri>model://ground_plane</uri>
     </include>
 
-    <!-- drchubo -->		
+    <!-- drchubo_lower -->		
     <include>
-      <uri>model://drchubo</uri>
+      <uri>model://drchubo_lower</uri>
       <pose>1.33 -1.1 1.0 0 0 1.57</pose>
-      <plugin filename="libdrchuboPlugin.so" name="drchuboPlugin"/>	
+      <plugin filename="libdrchuboPlugin.so" name="drchuboPlugin"/> 
     </include>
 
     <!-- golf_cart -->
@@ -51,16 +52,16 @@
     </include>
 
     <!-- world Plugin -->
-    <plugin filename="libworldSimPlugin.so" name="worldSimPlugin">
+   <plugin filename="libworldSimPlugin.so" name="worldSimPlugin">
         <robot>
-            <model_name>drchubo</model_name>
+            <model_name>drchubo_lower</model_name>
             <pin_link>Body_Torso</pin_link> 
         </robot>   	
         <vehicle>
             <model_name>drc_vehicle</model_name>
             <seat_link>polaris_ranger_ev::chassis</seat_link> 
         </vehicle>   	
-    </plugin>
+    </plugin> 
 
   </world>
 </gazebo>

@@ -538,48 +538,48 @@ worldSimPlugin::drchuboCommandController::drchuboCommandController() {
     // ros stuff
     this->rosNode = new ros::NodeHandle("");
     
-    // must match those inside AtlasPlugin
+    // Left Leg
     this->jointNames.push_back("drchubo::LHY");
     this->jointNames.push_back("drchubo::LHR");
     this->jointNames.push_back("drchubo::LHP");
     this->jointNames.push_back("drchubo::LKP");
     this->jointNames.push_back("drchubo::LAP");
     this->jointNames.push_back("drchubo::LAR");
-
+    // Right Leg
     this->jointNames.push_back("drchubo::RHY");
     this->jointNames.push_back("drchubo::RHR");
     this->jointNames.push_back("drchubo::RHP");
     this->jointNames.push_back("drchubo::RKP");
     this->jointNames.push_back("drchubo::RAP");
     this->jointNames.push_back("drchubo::RAR");
-
-    this->jointNames.push_back("drchubo::LSP");
+    // Left Arm
+    /*    this->jointNames.push_back("drchubo::LSP");
     this->jointNames.push_back("drchubo::LSR");
     this->jointNames.push_back("drchubo::LSY");
     this->jointNames.push_back("drchubo::LEP");
     this->jointNames.push_back("drchubo::LWY");
     this->jointNames.push_back("drchubo::LWP");
     this->jointNames.push_back("drchubo::LWR");
-
+    // Right Arm
     this->jointNames.push_back("drchubo::RSP");
     this->jointNames.push_back("drchubo::RSR");
     this->jointNames.push_back("drchubo::RSY");
     this->jointNames.push_back("drchubo::REP");
     this->jointNames.push_back("drchubo::RWY");
     this->jointNames.push_back("drchubo::RWP");
-    this->jointNames.push_back("drchubo::RWR");
-
+    this->jointNames.push_back("drchubo::RWR");*/
+    // Torso / Neck
     this->jointNames.push_back("drchubo::TSY");
-    this->jointNames.push_back("drchubo::NKY");
+    /*    this->jointNames.push_back("drchubo::NKY");
     this->jointNames.push_back("drchubo::NKP");
-
+    // Fingers Left
     this->jointNames.push_back("drchubo::LF1");
     this->jointNames.push_back("drchubo::LF2");
     this->jointNames.push_back("drchubo::LF3");
-
+    // Fingers Right
     this->jointNames.push_back("drchubo::RF1");
     this->jointNames.push_back("drchubo::RF2");
-    this->jointNames.push_back("drchubo::RF3");
+    this->jointNames.push_back("drchubo::RF3");*/
 
     unsigned int n = this->jointNames.size();
     this->jc.position.resize(n);
@@ -662,50 +662,55 @@ void worldSimPlugin::drchuboCommandController::SetPIDStand( physics::ModelPtr _d
 
 
   // StandPrep end pose --> Stand  pose
-  this->jc.position[0]  =   2.438504816382192e-05;
-  this->jc.position[1]  =   0.0015186156379058957;
-  this->jc.position[2]  =   9.983908967114985e-06;
-  this->jc.position[3]  =   -0.0010675729718059301;
-  this->jc.position[4]  =   -0.0003740221436601132;
-  this->jc.position[5]  =   0.06201673671603203;
-  this->jc.position[6]  =  -0.2333149015903473;
-  this->jc.position[7]  =   0.5181407332420349;
-  this->jc.position[8]  =  -0.27610817551612854;
-  this->jc.position[9]  =   -0.062101610004901886;
-  this->jc.position[10] =  0.00035181696875952184;
-  this->jc.position[11] =   -0.06218484416604042;
-  this->jc.position[12] =  -0.2332201600074768;
-  this->jc.position[13] =   0.51811283826828;
-  this->jc.position[14] =  -0.2762000858783722;
-  this->jc.position[15] =   0.06211360543966293;
-  this->jc.position[16] =   0.29983898997306824;
-  this->jc.position[17] =   -1.303462266921997;
-  this->jc.position[18] =   2.0007927417755127;
-  this->jc.position[19] =   0.49823325872421265;
-  this->jc.position[20] =  0.0003098883025813848;
-  this->jc.position[21] =   -0.0044272784143686295;
-  this->jc.position[22] =   0.29982614517211914;
-  this->jc.position[23] =   1.3034454584121704;
-  this->jc.position[24] =   2.000779867172241;
-  this->jc.position[25] =  -0.498238742351532;
-  this->jc.position[26] =  0.0003156556049361825;
-  this->jc.position[27] =   0.004448802210390568;
-  this->jc.position[28] =   0.00;
-
-  for (unsigned int i = 0; i < this->jointNames.size(); ++i)
-    this->jc.k_effort[i] =  255;
-
-  // set joint positions
-  std::map<std::string, double> jps;
-  for (unsigned int i = 0; i < this->jointNames.size(); ++i)
-    jps.insert(std::make_pair(this->jointNames[i], this->jc.position[i]));
-
-  _drchuboModel->SetJointPositions(jps);
-
-  // publish jointCommands
-  this->pubJointCommand.publish(jc);
+    // Left Leg
+    this->jc.position[0]  =   2.438504816382192e-05;
+    this->jc.position[1]  =   0.0015186156379058957;
+    this->jc.position[2]  =   9.983908967114985e-06;
+    this->jc.position[3]  =   -0.0010675729718059301;
+    this->jc.position[4]  =   -0.0003740221436601132;
+    this->jc.position[5]  =   0.06201673671603203;
+    // Right Leg
+    this->jc.position[6]  =  -0.2333149015903473;
+    this->jc.position[7]  =   0.5181407332420349;
+    this->jc.position[8]  =  -0.27610817551612854;
+    this->jc.position[9]  =   -0.062101610004901886;
+    this->jc.position[10] =  0.00035181696875952184;
+    this->jc.position[11] =   -0.06218484416604042;
+    // Left Arm
+    /*    this->jc.position[12] =  -0.2332201600074768;
+    this->jc.position[13] =   0.51811283826828;
+    this->jc.position[14] =  -0.2762000858783722;
+    this->jc.position[15] =   0.06211360543966293;
+    this->jc.position[16] =   0.29983898997306824;
+    this->jc.position[17] =   -1.303462266921997;
+    this->jc.position[18] =   2.0007927417755127;
+    // Right Arm
+    this->jc.position[19] =   0.49823325872421265;
+    this->jc.position[20] =  0.0003098883025813848;
+    this->jc.position[21] =   -0.0044272784143686295;
+    this->jc.position[22] =   0.29982614517211914;
+    this->jc.position[23] =   1.3034454584121704;
+    this->jc.position[24] =   2.000779867172241;
+    this->jc.position[25] =  -0.498238742351532; */
+    // Torso and Neck
+    this->jc.position[26] =  0.0003156556049361825;
+    /*    this->jc.position[27] =   0.004448802210390568;
+	  this->jc.position[28] =   0.00;*/
+    
+    for (unsigned int i = 0; i < this->jointNames.size(); ++i)
+      this->jc.k_effort[i] =  255;
+    
+    // set joint positions
+    std::map<std::string, double> jps;
+    for (unsigned int i = 0; i < this->jointNames.size(); ++i)
+      jps.insert(std::make_pair(this->jointNames[i], this->jc.position[i]));
+    
+    _drchuboModel->SetJointPositions(jps);
+    
+    // publish jointCommands
+    this->pubJointCommand.publish(jc);
 }
-
+  
 
 /**
  * @function SetSeatingConfiguration
@@ -731,7 +736,7 @@ void worldSimPlugin::drchuboCommandController::SetSeatingConfiguration( physics:
     this->jc.position[10] =  -0.10;
     this->jc.position[11] =  0.00;
     // Left Arm
-    this->jc.position[12] =   -1.0472; // Forward 60
+    /*    this->jc.position[12] =   -1.0472; // Forward 60
     this->jc.position[13] =   1.0472;
     this->jc.position[14] =   -1.57;
     this->jc.position[15] =   -2.26;
@@ -745,11 +750,11 @@ void worldSimPlugin::drchuboCommandController::SetSeatingConfiguration( physics:
     this->jc.position[22] =   -2.26;
     this->jc.position[23] =   0.00;
     this->jc.position[24] =   1.57;
-    this->jc.position[25] =   0.00;
+    this->jc.position[25] =   0.00;*/
     // Torso and Neck
     this->jc.position[26]  =   0.00;
-    this->jc.position[27]  =   0.00;
-    this->jc.position[28]  =   0.00;
+    /*    this->jc.position[27]  =   0.00;
+	  this->jc.position[28]  =   0.00;*/
 
 
     
@@ -772,36 +777,49 @@ void worldSimPlugin::drchuboCommandController::SetSeatingConfiguration( physics:
 	
 	// standing configuration
 	this->jc.header.stamp = ros::Time::now();
+	// Left Leg
 	this->jc.position[0]  =   0.00;
 	this->jc.position[1]  =   0.00;
 	this->jc.position[2]  =   0.00;
 	this->jc.position[3]  =   0.00;
 	this->jc.position[4]  =   0.00;
 	this->jc.position[5]  =   0.00;
+	// Right Leg
 	this->jc.position[6]  =   0.00;
 	this->jc.position[7]  =   0.00;
 	this->jc.position[8]  =   0.00;
 	this->jc.position[9]  =   0.00;
 	this->jc.position[10] =   0.00;
 	this->jc.position[11] =   0.00;
-	this->jc.position[12] =   0.00;
+	// Left Arm
+	/*	this->jc.position[12] =   0.00;
 	this->jc.position[13] =   0.00;
 	this->jc.position[14] =   0.00;
 	this->jc.position[15] =   0.00;
 	this->jc.position[16] =   0.00;
 	this->jc.position[17] =  -1.60;
 	this->jc.position[18] =   0.00;
+	// Right Arm
 	this->jc.position[19] =   0.00;
 	this->jc.position[20] =   0.00;
 	this->jc.position[21] =   0.00;
 	this->jc.position[22] =   0.00;
 	this->jc.position[23] =   1.60;
 	this->jc.position[24] =   0.00;
-	this->jc.position[25] =   0.00;
-	this->jc.position[26] =   0.00;
+	this->jc.position[25] =   0.00;*/
+	// Torso and neck
+	this->jc.position[26] =   0.00; /*
 	this->jc.position[27] =   0.00;
-	
-	
+	this->jc.position[28] =   0.00;
+	// Left Fingers
+	this->jc.position[29] =   0.00;
+	this->jc.position[30] =   0.00;
+	this->jc.position[31] =   0.00;
+	// Right Fingers
+	this->jc.position[32] =   0.00;
+	this->jc.position[33] =   0.00;
+	this->jc.position[34] =   0.00;*/
+
 	// set joint positions
 	std::map<std::string, double> jps;
 	for (unsigned int i = 0; i < this->jointNames.size(); ++i)
@@ -837,7 +855,7 @@ void worldSimPlugin::drchuboCommandController::SetSeatingConfiguration( physics:
 	this->jc.position[10] = -0.2618;
 	this->jc.position[11] =   0.00;
 	// Left Arm
-	this->jc.position[12] =   0.00;
+	/*	this->jc.position[12] =   0.00;
 	this->jc.position[13] =   0.52;
 	this->jc.position[14] =   0.00;
 	this->jc.position[15] =   0.00;
@@ -851,11 +869,11 @@ void worldSimPlugin::drchuboCommandController::SetSeatingConfiguration( physics:
 	this->jc.position[22] =   0.00;
 	this->jc.position[23] =  -1.57;
 	this->jc.position[24] =   1.60;
-	this->jc.position[25] =   0.00;
+	this->jc.position[25] =   0.00;*/
 	// Torso and Neck
 	this->jc.position[26] =   0.00;
-	this->jc.position[27] =   0.00;
-	this->jc.position[28] =   0.00;
+	/*	this->jc.position[27] =   0.00;
+		this->jc.position[28] =   0.00;*/
 	
 	
 	// set joint positions
